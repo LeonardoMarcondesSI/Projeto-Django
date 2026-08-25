@@ -30,3 +30,12 @@ def editar_aluno(request, pk):
         return redirect('aluno')
     
     return render(request, 'form_aluno.html', {'aluno': aluno})
+
+def excluir_aluno(request, pk):
+    aluno = get_object_or_404(Aluno, pk=pk)
+
+    if request.method == "POST":
+        aluno.delete()
+        return redirect('aluno')
+
+    return render(request, 'confirmar_exclusao.html', {'aluno': aluno})
