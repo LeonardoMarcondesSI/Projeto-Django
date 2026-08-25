@@ -1,478 +1,484 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Identidade Acadêmica</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Academia Arcana</title>
 
-        :root {
-            --bg: #080b14;
-            --bg-secondary: #111624;
-            --card: rgba(20, 26, 43, 0.82);
-            --border: rgba(255, 255, 255, 0.08);
-            --primary: #7c5cff;
-            --secondary: #27c2ff;
-            --text: #f5f7ff;
-            --muted: #9ca6bd;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: Inter, Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at 15% 20%, rgba(124, 92, 255, 0.15), transparent 30%),
-                radial-gradient(circle at 85% 80%, rgba(39, 194, 255, 0.12), transparent 30%),
-                var(--bg);
-
-            color: var(--text);
-            padding-bottom: 60px;
-        }
-
-        /* HEADER */
-
-        header {
-            padding: 60px 20px 45px;
-            text-align: center;
-        }
-
-        .tag {
-            display: inline-block;
-
-            padding: 7px 14px;
-            margin-bottom: 20px;
-
-            border: 1px solid rgba(124, 92, 255, 0.35);
-            border-radius: 999px;
-
-            background: rgba(124, 92, 255, 0.08);
-
-            color: #b9aaff;
-
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        header h1 {
-            font-size: clamp(34px, 6vw, 62px);
-            letter-spacing: -2px;
-            margin-bottom: 15px;
-        }
-
-        .gradient-text {
-            background: linear-gradient(
-                90deg,
-                var(--primary),
-                var(--secondary)
-            );
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-        }
-
-        header p {
-            max-width: 600px;
-            margin: auto;
-
-            color: var(--muted);
-
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* INFORMAÇÕES */
-
-        .info-bar {
-            width: min(1100px, calc(100% - 40px));
-            margin: 0 auto 35px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 16px 20px;
-
-            background: rgba(255, 255, 255, 0.03);
-
-            border: 1px solid var(--border);
-            border-radius: 16px;
-
-            color: var(--muted);
-
-            font-size: 14px;
-        }
-
-        .info-bar strong {
-            color: var(--text);
-        }
-
-        /* GRID */
-
-        .container {
-            width: min(1100px, calc(100% - 40px));
-            margin: auto;
-        }
-
-        .cards {
-            display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(290px, 1fr));
-
-            gap: 24px;
-        }
-
-        /* CARD */
-
-        .card {
-            position: relative;
-            overflow: hidden;
-
-            min-height: 350px;
-
-            padding: 26px;
-
-            background: var(--card);
-
-            border: 1px solid var(--border);
-            border-radius: 24px;
-
-            backdrop-filter: blur(12px);
-
-            transition:
-                transform 0.3s ease,
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-7px);
-
-            border-color: rgba(124, 92, 255, 0.4);
-
-            box-shadow:
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(124, 92, 255, 0.08);
-        }
-
-        .card::before {
-            content: "";
-
-            position: absolute;
-
-            width: 180px;
-            height: 180px;
-
-            right: -80px;
-            top: -80px;
-
-            border-radius: 50%;
-
-            background: var(--primary);
-
-            filter: blur(70px);
-
-            opacity: 0.15;
-        }
-
-        /* CARD HEADER */
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 28px;
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-
-            color: #a8b1c5;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            letter-spacing: 1px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-
-            border-radius: 50%;
-
-            background: #4ade80;
-
-            box-shadow: 0 0 10px #4ade80;
-        }
-
-        .id {
-            color: #68738a;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* AVATAR */
-
-        .avatar {
-            width: 76px;
-            height: 76px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            margin-bottom: 20px;
-
-            border-radius: 20px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--primary),
-                    var(--secondary)
-                );
-
-            box-shadow:
-                0 10px 30px rgba(124, 92, 255, 0.25);
-
-            color: white;
-
-            font-size: 30px;
-            font-weight: 800;
-        }
-
-        /* TEXTOS */
-
-        .student-name {
-            margin-bottom: 8px;
-
-            font-size: 24px;
-            letter-spacing: -0.5px;
-        }
-
-        .course {
-            display: inline-block;
-
-            padding: 6px 11px;
-            margin-bottom: 22px;
-
-            background: rgba(39, 194, 255, 0.08);
-
-            border: 1px solid rgba(39, 194, 255, 0.18);
-            border-radius: 8px;
-
-            color: #71d7ff;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            letter-spacing: 0.7px;
-        }
-
-        .divider {
-            width: 100%;
-            height: 1px;
-
-            margin-bottom: 20px;
-
-            background: var(--border);
-        }
-
-        .bio-title {
-            margin-bottom: 8px;
-
-            color: #747f97;
-
-            font-size: 11px;
-            font-weight: 800;
-
-            letter-spacing: 1.4px;
-        }
-
-        .bio {
-            color: #c4cbda;
-
-            font-size: 14px;
-            line-height: 1.65;
-        }
-
-        /* FOOTER DO CARTÃO */
-
-        .card-footer {
-            margin-top: 25px;
-
-            display: flex;
-            align-items: center;
-            gap: 8px;
-
-            color: #5e687d;
-
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .card-footer span {
-            color: var(--primary);
-        }
-
-        /* SEM ALUNOS */
-
-        .empty {
-            grid-column: 1 / -1;
-
-            padding: 70px 30px;
-
-            text-align: center;
-
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-
-            color: var(--muted);
-        }
-
-        .empty h2 {
-            color: var(--text);
-            margin-bottom: 10px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            margin-top: 60px;
-            text-align: center;
-
-            color: #505a70;
-
-            font-size: 12px;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-
-            header {
-                padding-top: 40px;
-            }
-
-            .info-bar {
-                flex-direction: column;
-                gap: 8px;
-
-                text-align: center;
-            }
-
-            .card {
-                min-height: auto;
-            }
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="{% static 'aluno/style.css' %}"
+    >
 </head>
 
-<body>
 
-    <header>
+<body class="locked">
 
-        <div class="tag">
-            IDENTIDADE ACADÊMICA
+
+    <!-- =========================================
+         CURSOR MÁGICO
+    ========================================== -->
+
+    <div id="magicCursor"></div>
+    <div id="cursorGlow"></div>
+
+    <div id="magicParticles"></div>
+
+
+    <!-- =========================================
+         TELA DE INTRODUÇÃO
+    ========================================== -->
+
+    <section
+        class="intro"
+        id="intro"
+    >
+
+        <div class="intro-background">
+
+            <div class="intro-orb orb-one"></div>
+            <div class="intro-orb orb-two"></div>
+
         </div>
 
-        <h1>
-            Conheça nossos
-            <span class="gradient-text">
-                estudantes
-            </span>
-        </h1>
 
-        <p>
-            Perfis acadêmicos que apresentam um pouco
-            sobre cada aluno, sua formação, interesses
-            e objetivos.
-        </p>
+        <div class="intro-content">
 
-    </header>
+            <div class="intro-symbol">
+
+                ✦
+
+            </div>
 
 
-    <div class="info-bar">
+            <div class="intro-subtitle">
 
-        <div>
-            <strong>{{ alunos|length }}</strong>
-            perfil{{ alunos|length|pluralize:"is" }} cadastrado{{ alunos|length|pluralize }}
+                SISTEMA ACADÊMICO
+
+            </div>
+
+
+            <h1>
+
+                ACADEMIA
+
+                <span>
+                    ARCANA
+                </span>
+
+            </h1>
+
+
+            <div class="intro-divider">
+
+                <span></span>
+
+                ◆
+
+                <span></span>
+
+            </div>
+
+
+            <p>
+
+                Arquivo oficial dos aventureiros
+                da guilda acadêmica.
+
+            </p>
+
+
+            <button
+                id="enterButton"
+                class="enter-button"
+            >
+
+                <span class="button-rune">
+                    ✦
+                </span>
+
+                ENTRAR NA GUILDA
+
+            </button>
+
+
+            <div class="press-key">
+
+                PRESSIONE QUALQUER TECLA
+
+            </div>
+
         </div>
 
-        <div>
-            Sistema Acadêmico • Django
+
+        <div class="intro-footer">
+
+            DJANGO • GUILD SYSTEM
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         TRANSIÇÃO
+    ========================================== -->
+
+    <div
+        class="transition-screen"
+        id="transitionScreen"
+    >
+
+        <div class="transition-symbol">
+
+            ✦
+
         </div>
 
     </div>
 
 
-    <main class="container">
+    <!-- =========================================
+         MUNDO / BACKGROUND
+    ========================================== -->
 
-        <div class="cards">
+    <div class="world">
+
+        <div
+            class="background-grid"
+            id="backgroundGrid"
+        ></div>
+
+
+        <div
+            class="world-light light-one"
+            id="lightOne"
+        ></div>
+
+
+        <div
+            class="world-light light-two"
+            id="lightTwo"
+        ></div>
+
+
+        <div id="stars"></div>
+
+    </div>
+
+
+    <!-- =========================================
+         CONTEÚDO PRINCIPAL
+    ========================================== -->
+
+    <div
+        id="guild"
+        class="guild hidden"
+    >
+
+
+        <!-- TOPBAR -->
+
+        <nav class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+
+                    ✦
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        ACADEMIA ARCANA
+                    </strong>
+
+                    <small>
+                        REGISTRO DE AVENTUREIROS
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="system-status">
+
+                <span></span>
+
+                SISTEMA ONLINE
+
+            </div>
+
+        </nav>
+
+
+        <!-- HERO -->
+
+        <header class="hero">
+
+            <div class="hero-rune">
+
+                ◆ ARQUIVO DA GUILDA ◆
+
+            </div>
+
+
+            <h1>
+
+                Identidades
+
+                <span>
+                    Acadêmicas
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                Cada estudante representa uma jornada.
+
+                Explore os registros da guilda e conheça
+                os aventureiros da Academia Arcana.
+
+            </p>
+
+        </header>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+            <div class="stat">
+
+                <strong id="visibleCount">
+
+                    {{ alunos|length }}
+
+                </strong>
+
+                <span>
+                    AVENTUREIROS
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+
+                    ATIVA
+
+                </strong>
+
+                <span>
+                    GUILDA
+                </span>
+
+            </div>
+
+
+            <div class="stat">
+
+                <strong>
+
+                    RPG
+
+                </strong>
+
+                <span>
+                    INTERFACE
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- FILTROS -->
+
+        <section class="toolbar">
+
+            <div class="search">
+
+                <span>
+                    ◇
+                </span>
+
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Buscar aventureiro..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select id="courseFilter">
+
+                <option value="">
+
+                    Todos os cursos
+
+                </option>
+
+            </select>
+
+        </section>
+
+
+        <!-- CARDS -->
+
+        <main
+            class="cards"
+            id="cards"
+        >
 
             {% for aluno in alunos %}
 
-            <article class="card">
+            <article
+                class="character-card"
+                style="--delay: {{ forloop.counter0 }};"
+                data-name="{{ aluno.nome|lower }}"
+                data-course="{{ aluno.curso }}"
+            >
 
-                <div class="card-top">
+                <div class="card-border"></div>
 
-                    <div class="status">
-                        <div class="status-dot"></div>
-                        ALUNO ATIVO
+
+                <div class="card-content">
+
+
+                    <div class="card-header">
+
+                        <div class="status">
+
+                            <span></span>
+
+                            REGISTRO ATIVO
+
+                        </div>
+
+
+                        <div class="student-id">
+
+                            #{{ aluno.id }}
+
+                        </div>
+
                     </div>
 
-                    <div class="id">
-                        #{{ aluno.id }}
+
+                    <div class="avatar-area">
+
+                        <div class="avatar-ring">
+
+                            <div class="avatar">
+
+                                {{ aluno.nome|slice:":1"|upper }}
+
+                            </div>
+
+                        </div>
+
                     </div>
 
-                </div>
+
+                    <div class="student-info">
+
+                        <h2>
+
+                            {{ aluno.nome }}
+
+                        </h2>
 
 
-                <div class="avatar">
-                    {{ aluno.nome|slice:":1"|upper }}
-                </div>
+                        <div class="course">
+
+                            {{ aluno.curso }}
+
+                        </div>
+
+                    </div>
 
 
-                <h2 class="student-name">
-                    {{ aluno.nome }}
-                </h2>
+                    <div class="divider"></div>
 
 
-                <div class="course">
-                    {{ aluno.curso }}
-                </div>
+                    <div class="bio-title">
+
+                        HISTÓRIA DO AVENTUREIRO
+
+                    </div>
 
 
-                <div class="divider"></div>
+                    <p class="bio">
+
+                        {{ aluno.bio }}
+
+                    </p>
 
 
-                <div class="bio-title">
-                    SOBRE
-                </div>
+                    <div class="xp">
 
-                <p class="bio">
-                    {{ aluno.bio }}
-                </p>
+                        <div class="xp-info">
+
+                            <span>
+                                JORNADA ACADÊMICA
+                            </span>
+
+                            <span>
+                                EM PROGRESSO
+                            </span>
+
+                        </div>
 
 
-                <div class="card-footer">
-                    <span>◆</span>
-                    PERFIL ACADÊMICO
+                        <div class="xp-track">
+
+                            <div class="xp-bar"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-actions">
+
+                        <button
+                            class="inspect-button"
+                            type="button"
+                        >
+
+                            ✦ INSPECIONAR ✦
+
+                        </button>
+
+                        <a
+                            class="edit-button"
+                            href="{% url 'editar_aluno' aluno.pk %}"
+                        >
+                            ✎ EDITAR
+                        </a>
+
+                    </div>
+
                 </div>
 
             </article>
@@ -482,27 +488,107 @@
 
             <div class="empty">
 
+                <div>
+                    ✦
+                </div>
+
                 <h2>
-                    Nenhum aluno cadastrado
+                    A guilda está vazia
                 </h2>
 
                 <p>
-                    Cadastre um aluno pelo painel administrativo
-                    para que o perfil apareça aqui.
+                    Nenhum aventureiro foi registrado.
                 </p>
 
             </div>
 
             {% endfor %}
 
+        </main>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <span>
+                ACADEMIA ARCANA
+            </span>
+
+            <span>
+                POWERED BY DJANGO
+            </span>
+
+        </footer>
+
+    </div>
+
+
+    <!-- =========================================
+         MODAL
+    ========================================== -->
+
+    <div
+        class="modal"
+        id="characterModal"
+    >
+
+        <div class="modal-card">
+
+
+            <button
+                class="modal-close"
+                id="modalClose"
+            >
+
+                ✕
+
+            </button>
+
+
+            <div
+                class="modal-avatar"
+                id="modalAvatar"
+            ></div>
+
+
+            <div class="modal-label">
+
+                FICHA DO AVENTUREIRO
+
+            </div>
+
+
+            <h2 id="modalName"></h2>
+
+
+            <div
+                class="modal-course"
+                id="modalCourse"
+            ></div>
+
+
+            <div class="modal-divider"></div>
+
+
+            <small>
+
+                BIOGRAFIA
+
+            </small>
+
+
+            <p id="modalBio"></p>
+
         </div>
 
-    </main>
+    </div>
 
 
-    <footer>
-        Cartão de Identidade Acadêmica • Projeto Django
-    </footer>
+    <script
+        src="{% static 'aluno/script.js' %}"
+    ></script>
 
 </body>
+
 </html>
